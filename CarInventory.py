@@ -20,7 +20,7 @@ for key, value in myVehicle.items():
 myInventoryList = []
 
 # Copying the CSV file into memory
-with open('car_fleet.csv') as csvFile:
+with open('data//car_fleet.csv') as csvFile:
     csvReader = csv.reader(csvFile, delimiter=',')  
     lineCount = 0  
     for row in csvReader:
