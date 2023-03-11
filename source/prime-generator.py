@@ -40,9 +40,13 @@ def getPrime(numberStart:int, numberEnd:int):
     def isPrime(number):
         if number < 2:
             return False
-        for index in range(2, int(number // 2 + 1)):
-            if number % index == 0:
-                return False
+        elif number <= 3:
+            return True
+        else:
+            iterator = range(2, int(number // 2 + 1))
+            for index in iterator:
+                if number % index == 0:
+                    return False
         return True
 
     # Initialize a list to store prime number:
