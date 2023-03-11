@@ -1,6 +1,15 @@
 ## Creating a car inventory program
-import csv
-import copy
+import csv, copy, os
+from pathlib import Path
+
+directory_base = str(os.getcwdb())[2:-1]
+
+if os.name == 'nt':
+    directory_data = Path(directory_base + '/data')
+    directory_source = Path(directory_base + '/source')
+else:
+    directory_data = directory_base + '/data'
+    directory_source = directory_base + '/source'
 
 # Defining the dictionary
 myVehicle = {
@@ -20,7 +29,7 @@ for key, value in myVehicle.items():
 myInventoryList = []
 
 # Copying the CSV file into memory
-with open('data//car_fleet.csv') as csvFile:
+with open(directory_data + '/car_fleet.csv') as csvFile:
     csvReader = csv.reader(csvFile, delimiter=',')  
     lineCount = 0  
     for row in csvReader:

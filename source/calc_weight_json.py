@@ -6,9 +6,20 @@
 
 # Exercise 3: Creating the main program
 # You create the main program that parses the JSON data and calculates the molecular weight as you did in a previous lab.
+import os
+from pathlib import Path
+
+directory_base = str(os.getcwdb())[2:-1]
+
+if os.name == 'nt':
+    directory_data = Path(directory_base + '/data')
+    directory_source = Path(directory_base + '/source')
+else:
+    directory_data = directory_base + '/data'
+    directory_source = directory_base + '/source'
 
 import jsonFileHandler
-data = jsonFileHandler.readJsonFile('data/insulin.json')
+data = jsonFileHandler.readJsonFile(directory_data + '/insulin.json')
 
 if data != "" :
     bInsulin = data['molecules']['bInsulin']

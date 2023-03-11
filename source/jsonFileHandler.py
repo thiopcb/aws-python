@@ -15,8 +15,9 @@ import json
 def readJsonFile(fileName):
     data = ""
     try:
-        with open(fileName) as json_file:
+        with open(fileName, 'r') as json_file:
             data = json.load(json_file)
+            json_file.close()
     except IOError:
         print("Could not read file")
     return data

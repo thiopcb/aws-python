@@ -15,7 +15,16 @@
 
 # Exercise 2: Obtaining the protein sequence of human insulin
 import os
-path = os.path.abspath(os.getcwd()) + '//data'
+from pathlib import Path
+
+directory_base = str(os.getcwdb())[2:-1]
+
+if os.name == 'nt':
+    directory_data = Path(directory_base + '/data')
+    directory_source = Path(directory_base + '/source')
+else:
+    directory_data = directory_base + '/data'
+    directory_source = directory_base + '/source'
 
 def lineProcessing(line):
     """ This function omits out characters in a line text: '1', '6' and whitespaces """
@@ -34,7 +43,7 @@ def lineProcessing(line):
 tempText = '' # initialize temperory line text variable
 preproInsulin ='' # Store the human preproInsulin sequence in a variable called preproInsulin
 # Loop through a file to copy line by line until end of line:
-with open(path + '//preproinsulin-seq.txt', 'r') as textFile:
+with open(directory_data + '//preproinsulin-seq.txt', 'r') as textFile:
     fileReader = textFile.readlines()
     for row in fileReader:
         # Check line to ignore key text: 'origin' and '//'
@@ -49,7 +58,7 @@ with open(path + '//preproinsulin-seq.txt', 'r') as textFile:
 textFile.close() # close working file after cleaning sequence
 
 # Write cleaned sequence to text file, preproInsulin-seq-clean.txt
-with open(path + '//preproInsulin-seq-clean.txt', 'w') as textFile:
+with open(directory_data + '//preproInsulin-seq-clean.txt', 'w') as textFile:
     textFile.write(preproInsulin)
 textFile.close() # close working file after cleaning sequence
 
@@ -73,13 +82,13 @@ for charaInsulin in preproInsulin[89:110]:
     aInsulin += charaInsulin
 
 # Write cleaned sequences to text file
-with open(path + '//lsInsulin-seq-clean.txt', 'w') as textFile:
+with open(directory_data + '//lsInsulin-seq-clean.txt', 'w') as textFile:
     textFile.write(lsInsulin)
-with open(path + '//bInsulin-seq-clean.txt', 'w') as textFile:
+with open(directory_data + '//bInsulin-seq-clean.txt', 'w') as textFile:
     textFile.write(bInsulin)
-with open(path + '//cInsulin-seq-clean.txt', 'w') as textFile:
+with open(directory_data + '//cInsulin-seq-clean.txt', 'w') as textFile:
     textFile.write(cInsulin)
-with open(path + '//aInsulin-seq-clean.txt', 'w') as textFile:
+with open(directory_data + '//aInsulin-seq-clean.txt', 'w') as textFile:
     textFile.write(aInsulin)
 
 # Printing "the sequence of human insulin" to console using successive print() commands:

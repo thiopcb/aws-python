@@ -4,7 +4,17 @@
 # Calculating the Net Charge of Insulin by Using Python Lists and Loops #
 #########################################################################
 import os
-path = os.path.abspath(os.getcwd()) + '//data'
+from pathlib import Path
+
+directory_base = str(os.getcwdb())[2:-1]
+
+if os.name == 'nt':
+    directory_data = Path(directory_base + '/data')
+    directory_source = Path(directory_base + '/source')
+else:
+    directory_data = directory_base + '/data'
+    directory_source = directory_base + '/source'
+    
 # Function to read through a file, line by line, stores data to a variable:
 def file2variable(filename):
     """" 
@@ -21,12 +31,12 @@ def file2variable(filename):
 
 # Exercise 1: Assigning variables, lists, and dictionaries
 # Open and read file "preproInsulin-seq-clean.txt", store the human preproinsulin sequence in a variable called preproinsulin:
-preproInsulin = file2variable(path + '//preproInsulin-seq-clean.txt')
+preproInsulin = file2variable(directory_data + '//preproInsulin-seq-clean.txt')
 # Open and read files of remaining sequence elements of human insulin, store them in variables:
-lsInsulin = file2variable(path + '//lsInsulin-seq-clean.txt')
-bInsulin = file2variable(path + '//bInsulin-seq-clean.txt')
-cInsulin = file2variable(path + '//cInsulin-seq-clean.txt')
-aInsulin = file2variable(path + '//aInsulin-seq-clean.txt')
+lsInsulin = file2variable(directory_data + '//lsInsulin-seq-clean.txt')
+bInsulin = file2variable(directory_data + '//bInsulin-seq-clean.txt')
+cInsulin = file2variable(directory_data + '//cInsulin-seq-clean.txt')
+aInsulin = file2variable(directory_data + '//aInsulin-seq-clean.txt')
 # Merge the results of the smaller insulin groupings into a single variable called insulin
 insulin = str(bInsulin) + str(cInsulin)
 

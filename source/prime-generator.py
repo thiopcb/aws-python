@@ -18,6 +18,19 @@ def timer(function):
         return value
     return wrapper
 
+# Import library and module to identify working directories
+import os
+from pathlib import Path
+
+directory_base = str(os.getcwdb())[2:-1]
+
+if os.name == 'nt':
+    directory_data = Path(directory_base + '/data')
+    directory_source = Path(directory_base + '/source')
+else:
+    directory_data = directory_base + '/data'
+    directory_source = directory_base + '/source'
+
 @timer # Decorator to time this function
 def getPrime(numberStart:int, numberEnd:int):
     """
@@ -43,23 +56,18 @@ def getPrime(numberStart:int, numberEnd:int):
 
     return ','.join(map(str, listPrime))
 
-def getNumbers():
+def getNumbers(*args, **kargs):
     """
     This function gets the starting and ending number from user entry.
     """
-    startNumber = input("Please enter the starting number: ")
-    endNumber = input("Please enter the ending number: ")
-    return startNumber, endNumber
+    def entryNumbers(*args, **kargs):
+        # User inputs integral numbers:
+        strNum = input("Please enter the starting number: ")
+        endNum = input("Please enter the ending number: ")
+        return strNum, endNum
 
-def main():
-    """
-    This is the main function to run a program.
-    """
-    # Get user to input starting and ending numbers at terminal:
-    print("Get prime numbers between a starting number and ending number")
-    startNumber, endNumber = getNumbers()
-
-    # Check both inputted numbers are integers greater than zero:
+    # Get user entry and check both entries are integers greater than zero:
+    startNumber, endNumber = entryNumbers()
     inputs = False
     while inputs == False:
         if startNumber.isdigit() and endNumber.isdigit():
@@ -70,13 +78,23 @@ def main():
                     inputs = True
                 else:
                     print(f"{startNumber} is greater than {endNumber}!")
-                    startNumber, endNumber = getNumbers()
+                    startNumber, endNumber = entryNumbers()
             else:
                 print(f"Either {startNumber} or {endNumber} is less than zero!")
-                startNumber, endNumber = getNumbers()
+                startNumber, endNumber = entryNumbers()
         else:
             print(f"Either {startNumber} or {endNumber} is not an integer!")
-            startNumber, endNumber = getNumbers()
+            startNumber, endNumber = entryNumbers()
+    # Return integers:
+    return startNumber, endNumber
+
+def main():
+    """
+    This is the main function to run a program.
+    """
+    # Get user to input starting and ending numbers at terminal:
+    print("Get prime numbers between a starting number and ending number")
+    startNumber, endNumber = getNumbers()
 
     # Get prime numbers from 1 to 250
     prime_result = getPrime(startNumber, endNumber)
@@ -84,7 +102,7 @@ def main():
 #    print(prime_result)
 
     # Write results of prime numbers to text file
-    with open('results.txt', 'w') as fileText:
+    with open(directory_data + '/results.txt', 'w') as fileText:
         fileText.write(prime_result)
     fileText.close()
 
