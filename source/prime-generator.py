@@ -51,7 +51,7 @@ def getPrime(numberStart:int, numberEnd:int):
     
     listPrime = []
 
-    for i in range(check_number - 1, numberEnd + 1):
+    for i in range(check_number - 1, numberEnd):
         for j in listPrime:
             if check_number % j == 0:
                 break
