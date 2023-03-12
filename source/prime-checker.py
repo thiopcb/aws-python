@@ -23,7 +23,7 @@ def getPrime(numberStr:int, numberEnd:int):
     primes = []
 
 #    primes.append(check_number)
-    for i in range(check_number - 1, numberEnd + 1):
+    for i in range(check_number - 1, numberEnd):
         for j in primes:
             if check_number % j == 0:
                 break
