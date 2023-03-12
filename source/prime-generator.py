@@ -1,6 +1,6 @@
 # Python 3.9
 # Coding: utf-8
-# Version: 1.0
+# Version: 2.0
 ##########################################################################################
 # This program finds prime numbers between a beginning and an ending numbers. The prime  #
 # numbers store in comma-seperated sring then it writes into file called, 'results.txt   #
@@ -44,28 +44,20 @@ def getPrime(numberStart:int, numberEnd:int):
     """
     This function gets prime numbers between starting and ending numbers.
     """
-    # This function checks whether number is a prime
-    def isPrime(number):
-        if number < 2:
-            return False
-        elif number <= 3:
-            return True
-        else:
-            iterator = range(2, int(number // 2 + 1))
-            for index in iterator:
-                if number % index == 0:
-                    return False
-        return True
-
-    # Initialize a list to store prime number:
-    numbers = list(range(numberStart, numberEnd + 1))
+    if numberStart < 2:
+        check_number = 2
+    else:
+        check_number = numberStart
+    
     listPrime = []
 
-    # Loop through starting and ending numbers to get prime numbers:
-    for number in numbers:
-        if isPrime(number) == True:
-            listPrime.append(number)
-
+    for i in range(check_number - 1, numberEnd + 1):
+        for j in listPrime:
+            if check_number % j == 0:
+                break
+        else:
+            listPrime.append(check_number)
+        check_number += 1
     return ','.join(map(str, listPrime))
 
 def getNumbers(*args, **kargs):
