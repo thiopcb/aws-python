@@ -1,3 +1,11 @@
+# Python 3.9
+# Coding: utf-8
+# Version: 1.0
+##########################################################################################
+# This program finds prime numbers between a beginning and an ending numbers. The prime  #
+# numbers store in comma-seperated sring then it writes into file called, 'results.txt   #
+##########################################################################################
+
 from functools import wraps # Import wraps function from functools library
 from time import time # Import time function from time library
 def timer(function):
@@ -102,7 +110,7 @@ def main():
 
     # Get prime numbers from 1 to 250
     prime_result = getPrime(startNumber, endNumber)
-    print(f"...There're {len(prime_result.split(','))} prime numbers...")
+    print(f"...Found {len(prime_result.split(','))} prime numbers...")
 #    print(prime_result)
 
     # Write results of prime numbers to text file
