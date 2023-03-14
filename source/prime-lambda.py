@@ -28,6 +28,19 @@ def timer(function):
         return value
     return wrapper
 
+# Import library and module to identify working directories
+import os
+from pathlib import Path
+
+directory_base = str(os.getcwdb())[2:-1]
+
+if os.name == 'nt':
+    directory_data = Path(directory_base + '/data')
+    directory_source = Path(directory_base + '/source')
+else:
+    directory_data = directory_base + '/data'
+    directory_source = directory_base + '/source'
+
 @timer # Decorator to time this function
 def getPrime(numberStart:int, numberEnd:int):
     """
@@ -84,7 +97,7 @@ def main():
 #    print(prime_result)
 
     # Write results of prime numbers to text file
-    with open('results.txt', 'w') as fileText:
+    with open(directory_data + '/results.txt', 'w') as fileText:
         fileText.write(prime_result)
     fileText.close()
 
