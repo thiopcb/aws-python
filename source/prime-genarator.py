@@ -48,6 +48,7 @@ def getPrime(numberStart:int, numberEnd:int):
     """
     This function gets prime numbers between starting and ending numbers.
     """
+    # Get a list of all prime numbers until variable 'numberEnd':
     check_number = 2
     primes = []
     for i in range(1, numberEnd):
@@ -57,8 +58,7 @@ def getPrime(numberStart:int, numberEnd:int):
         else:
             primes.append(check_number)
         check_number += 1
-    
-#    listPrime = filter(lambda i : i >= numberStart, primes) # Code can't be used with jit decorator
+    # Filter primes greater than or equal to numberStart:    
     listPrime = []
     for i in primes:
         if i >= numberStart:
