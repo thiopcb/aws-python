@@ -6,8 +6,9 @@
 # numbers store in comma-seperated sring then it writes into file called, 'results.txt   #
 ##########################################################################################
 
-from functools import wraps # Import wraps function from functools library
-from time import time # Import time function from time library
+from numba import jit # Import jit module from numba library
+from functools import wraps # Import wraps module from functools library
+from time import time # Import time module from time library
 def timer(function):
     """
     This decorator function measures how long it takes to execute of a function.
@@ -21,6 +22,8 @@ def timer(function):
         endTime = time()
         if (endTime - startTime) < 1:
             print(f"Function <{funcName}> execution took {(endTime - startTime) * 1000:.2f} ms ...")
+        elif (endTime - startTime) > 60:
+            print(f"Function <{funcName}> execution took {(endTime - startTime) / 60:.2f} ms ...")
         else:
             print(f"Function <{funcName}> execution took {(endTime - startTime):.2f} s ...")
         return value
@@ -40,24 +43,29 @@ else:
     directory_source = directory_base + '/source'
 
 @timer # Decorator to time this function
+@jit(nopython = True) # Disadvantage: slow down by realtime compiling to C++ 
 def getPrime(numberStart:int, numberEnd:int):
     """
     This function gets prime numbers between starting and ending numbers.
     """
-    if numberStart < 2:
-        check_number = 2
-    else:
-        check_number = numberStart
-    
-    listPrime = []
-
-    for i in range(check_number - 1, numberEnd):
-        for j in listPrime:
+    check_number = 2
+    primes = []
+    for i in range(1, numberEnd):
+        for j in primes:
             if check_number % j == 0:
                 break
         else:
-            listPrime.append(check_number)
+            primes.append(check_number)
         check_number += 1
+    
+#    listPrime = filter(lambda i : i >= numberStart, primes) # Code can't be used with jit decorator
+    listPrime = []
+    for i in primes:
+        if i >= numberStart:
+            listPrime.append(i)
+        else:
+            pass
+    
     return ','.join(map(str, listPrime))
 
 def getNumbers(*args, **kargs):
