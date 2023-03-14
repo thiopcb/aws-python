@@ -52,7 +52,7 @@ def getPrime(numberStart:int, numberEnd:int):
     primes = []
     primes = list(filter(lambda i : all(i % j != 0 for j in range(2, int(i // 2))), numbers))
     primes = list(i for i in primes if i != 4) # Remove non-prime number 4 after getting all primes
-    # Filter primes greater than equal to numberStart
+    # Filter primes greater than or equal to numberStart:
     listPrime = filter(lambda i : i >= numberStart, primes)
 
     return ','.join(map(str, listPrime))
