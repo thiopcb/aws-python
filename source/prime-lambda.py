@@ -51,7 +51,8 @@ def getPrime(numberStart:int, numberEnd:int):
     numbers = range(2, numberEnd)
     primes = []
     primes = list(filter(lambda i : all(i % j != 0 for j in range(2, int(i // 2))), numbers))
-
+    primes = list(i for i in primes if i != 4) # Remove non-prime number 4 after getting all primes
+    # Filter primes greater than equal to numberStart
     listPrime = filter(lambda i : i >= numberStart, primes)
 
     return ','.join(map(str, listPrime))
@@ -93,7 +94,7 @@ def main():
 
     # Get prime numbers from 1 to 250
     prime_result = getPrime(startNumber, endNumber)
-    print(f"...There're {len(prime_result.split(','))} prime numbers between {startNumber} and {endNumber}...")
+    print(f"...Found {len(prime_result.split(','))} prime numbers between {startNumber} and {endNumber}...")
 #    print(prime_result)
 
     # Write results of prime numbers to text file
