@@ -110,7 +110,7 @@ def main():
 
     # Get prime numbers from 1 to 250
     prime_result = getPrime(startNumber, endNumber)
-    print(f"...Found {len(prime_result.split(','))} prime numbers...")
+    print(f"...Found {len(prime_result.split(','))} prime numbers between {startNumber} and {endNumber}...")
 #    print(prime_result)
 
     # Write results of prime numbers to text file
